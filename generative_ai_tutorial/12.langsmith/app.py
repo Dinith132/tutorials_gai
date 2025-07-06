@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+# from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -10,23 +10,33 @@ from pydantic import BaseModel
 import uvicorn
 from dotenv import load_dotenv
 import os
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_google_genai import GoogleGenerativeAI
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
-load_dotenv()
 
-os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
-os.environ["LANGSMITH_TRACING"] = os.environ.get("LANGSMITH_TRACING")
-os.environ["LANGSMITH_PROJECT"] = os.environ.get("LANGSMITH_PROJECT")
-os.environ["LANGSMITH_ENDPOINT"] = os.environ.get("LANGSMITH_ENDPOINT")
-os.environ["LANGSMITH_API_KEY"] = os.environ.get("LANGSMITH_API_KEY")
+# load_dotenv()
+
+
+os.environ["GOOGLE_API_KEY"] = "AIzaSyBcUsfH8V9z9ES0SVlYRAZAY_Lp2AdO800"
+# os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
+# os.environ["LANGSMITH_TRACING"] = os.environ.get("LANGSMITH_TRACING")
+# os.environ["LANGSMITH_PROJECT"] = os.environ.get("LANGSMITH_PROJECT")
+# os.environ["LANGSMITH_ENDPOINT"] = os.environ.get("LANGSMITH_ENDPOINT")
+# os.environ["LANGSMITH_API_KEY"] = os.environ.get("LANGSMITH_API_KEY")
 
 app = FastAPI()
 
-llm = ChatOpenAI(
-    model="gpt-3.5-turbo",
-    temperature=0
-)
+# llm = ChatOpenAI(
+#     model="gpt-3.5-turbo",
+#     temperature=0
+# )
 
-embedding_model = OpenAIEmbeddings(model="text-embedding-3-small")
+llm=GoogleGenerativeAI(
+    model="gemini-2.5-flash", temperature=0.1
+    )
+
+embedding_model = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 
 
 loader = PyPDFLoader("data/codeprolk.pdf")
@@ -49,7 +59,7 @@ retriever = vectorstore.as_retriever(
 
 
 message = """
-Answer this question using the provided context only.
+Answer this question using the provided context. if question not related to context then only you can give your own answer
 
 Question:
 {question}
