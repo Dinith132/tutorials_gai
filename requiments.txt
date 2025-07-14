@@ -1,0 +1,48 @@
+# LangChain core and agents
+langchain
+langchain-community
+langchain-openai
+langchainhub
+
+# LLMs and GenAI (OpenAI + HuggingFace + Diffusion support)
+openai
+transformers
+torch
+accelerate
+sentence-transformers
+diffusers
+datasets
+
+# Vector stores & retrievers
+faiss-cpu
+chromadb
+pinecone-client  # Optional, if you used Pinecone
+qdrant-client    # Optional, if you used Qdrant
+
+# Knowledge graphs / Graph tools
+networkx
+igraph
+rdflib
+neo4j
+
+# Embedding models
+tiktoken
+cohere
+
+# Agentic reasoning tools
+autogenstudio
+guidance
+crewai
+
+# Tool integrations
+duckduckgo-search
+wikipedia
+beautifulsoup4
+requests
+
+# Misc utilities
+python-dotenv
+pydantic
+tqdm
+rich
+
